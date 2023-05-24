@@ -4,7 +4,7 @@ from PIL import Image
 import tkinter as tk
 
 window = tk.Tk()
-window.title("Welcome")
+window.title("Admin tool")
 window.iconbitmap('image.ico')
 
 def quit_window(icon, item):

@@ -17,12 +17,19 @@ class Gui:
         StatusBar.pack(side = BOTTOM, expand = YES, fill = X, anchor = SW, pady = (2,0))
         self.menu = (pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Закрыть', self.quit_window))
         self.main_menu = Menu()
-        devices = ["192.168.0.1", "192.168.1.1", "192.168.2.2", "192.168.3.3", "192.168.4.4"]
+        #devices = ["192.168.0.1", "192.168.1.1", "192.168.2.2", "192.168.3.3", "192.168.4.4"]
         self.main_menu.add_cascade(label="Файл")
         self.main_menu.add_cascade(label="Настройки", command = self.option_window)
         self.main_menu.add_cascade(label="Выход", command = self.window.destroy)
         self.window.config(menu=self.main_menu)
-        Button(self.window, text="Warning!", command=lambda: self.warning_popup(devices)).pack(pady=20)
+        #Button(self.window, text="Warning!", command=lambda: self.warning_popup(devices)).pack(pady=20)
+        
+        self.frame = Frame(self.window)
+        for i in range(1, 5): 
+            self.label_i = Label(self.frame, width=35, height=8, bg='yellow', text= i)
+            self.label_i.pack(side=LEFT, padx=1, pady=1)
+        self.frame.pack(pady=10)
+
         self.window.protocol('WM_DELETE_WINDOW', self.withdraw_window)
         self.window.mainloop()
 
@@ -31,6 +38,8 @@ class Gui:
         screen_height = win.winfo_screenheight()
         x_cordinate = int((screen_width/2) - (width/2))
         y_cordinate = int((screen_height/2) - (height/2))
+        win.minsize(width, height)
+        win.maxsize(width, height)
         win.geometry("{}x{}+{}+{}".format(width, height, x_cordinate, y_cordinate))
 
     def quit_window(self, icon):
@@ -53,6 +62,7 @@ class Gui:
         Gui.center_window(child_w, 750, 250)
         child_w.title("Настройки")
         child_w.grab_set()
+
     
     def warning_popup(self, devices):
         notification.notify(
@@ -64,3 +74,6 @@ class Gui:
         ),
         timeout = 2
         )
+
+if __name__ in '__main__':
+    Gui()

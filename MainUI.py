@@ -2,18 +2,13 @@ import tkinter as tk
 from tkinter import *
 from PIL import Image
 import pystray
-
+import random
 
 class Gui:
     def __init__(self):
         self.window = tk.Tk()
         self.window.title('Admin tool')
-        self.window.geometry("1024x768")
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        x_cordinate = int((screen_width/2) - (1024/2))
-        y_cordinate = int((screen_height/2) - (768/2))
-        self.window.geometry("{}x{}+{}+{}".format(1024, 768, x_cordinate, y_cordinate))
+        Gui.center_window(self.window, 1024, 768)
         self.image = Image.open("image.ico")
         self.window.iconbitmap('image.ico')
         self.menu = (pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Закрыть', self.quit_window))
@@ -24,6 +19,13 @@ class Gui:
         self.window.config(menu=self.main_menu)
         self.window.protocol('WM_DELETE_WINDOW', self.withdraw_window)
         self.window.mainloop()
+
+    def center_window(win, width, height):
+        screen_width = win.winfo_screenwidth()
+        screen_height = win.winfo_screenheight()
+        x_cordinate = int((screen_width/2) - (width/2))
+        y_cordinate = int((screen_height/2) - (height/2))
+        win.geometry("{}x{}+{}+{}".format(width, height, x_cordinate, y_cordinate))
 
     def quit_window(self, icon):
         self.icon.stop()
@@ -42,12 +44,7 @@ class Gui:
     def option_window(self):
         child_w = Toplevel(self.window)
         child_w.iconbitmap('image.ico')
-        child_w.geometry("750x250")
-        screen_width = child_w.winfo_screenwidth()
-        screen_height = child_w.winfo_screenheight()
-        x_cordinate = int((screen_width/2) - (750/2))
-        y_cordinate = int((screen_height/2) - (250/2))
-        child_w.geometry("{}x{}+{}+{}".format(750, 250, x_cordinate, y_cordinate))
+        Gui.center_window(child_w, 750, 250)
         child_w.title("Настройки")
         child_w.grab_set()
 

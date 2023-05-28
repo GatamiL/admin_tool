@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import *
 from PIL import Image
 import pystray
-import random
+
+from plyer.utils import platform
+from plyer import notification
 
 class Gui:
     def __init__(self):
@@ -11,9 +13,11 @@ class Gui:
         Gui.center_window(self.window, 1024, 768)
         self.image = Image.open("image.ico")
         self.window.iconbitmap('image.ico')
+        StatusBar = Label(self.window, relief = RIDGE, text = "Готово")
+        StatusBar.pack(side = BOTTOM, expand = YES, fill = X, anchor = SW, pady = (2,0))
         self.menu = (pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Закрыть', self.quit_window))
         self.main_menu = Menu()
-        self.main_menu.add_cascade(label="Файл")
+        self.main_menu.add_cascade(label="Файл", command=self.button_click)
         self.main_menu.add_cascade(label="Настройки", command = self.option_window)
         self.main_menu.add_cascade(label="Выход", command = self.window.destroy)
         self.window.config(menu=self.main_menu)
@@ -47,6 +51,15 @@ class Gui:
         Gui.center_window(child_w, 750, 250)
         child_w.title("Настройки")
         child_w.grab_set()
-
-if __name__ in '__main__':
-    Gui()
+    
+    def button_click(self):
+        device = "192.168.10.3"
+        notification.notify(
+        title='Внимание',
+        message=f'Устройство {device} недоступно',
+        app_name='Admin tool',
+        app_icon='warning.{}'.format(
+            'ico' if platform == 'win' else 'png'
+        ),
+        timeout = 2
+        )

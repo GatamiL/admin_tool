@@ -17,10 +17,12 @@ class Gui:
         StatusBar.pack(side = BOTTOM, expand = YES, fill = X, anchor = SW, pady = (2,0))
         self.menu = (pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Закрыть', self.quit_window))
         self.main_menu = Menu()
-        self.main_menu.add_cascade(label="Файл", command=self.button_click)
+        devices = ["192.168.0.1", "192.168.1.1", "192.168.2.2", "192.168.3.3", "192.168.4.4"]
+        self.main_menu.add_cascade(label="Файл")
         self.main_menu.add_cascade(label="Настройки", command = self.option_window)
         self.main_menu.add_cascade(label="Выход", command = self.window.destroy)
         self.window.config(menu=self.main_menu)
+        Button(self.window, text="Warning!", command=lambda: self.warning_popup(devices)).pack(pady=20)
         self.window.protocol('WM_DELETE_WINDOW', self.withdraw_window)
         self.window.mainloop()
 
@@ -52,11 +54,10 @@ class Gui:
         child_w.title("Настройки")
         child_w.grab_set()
     
-    def button_click(self):
-        device = "192.168.10.3"
+    def warning_popup(self, devices):
         notification.notify(
         title='Внимание',
-        message=f'Устройство {device} недоступно',
+        message=f'Устройство {devices} недоступно',
         app_name='Admin tool',
         app_icon='warning.{}'.format(
             'ico' if platform == 'win' else 'png'

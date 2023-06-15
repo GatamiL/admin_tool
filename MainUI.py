@@ -1,9 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import PhotoImage
 from tkinter import *
-from textwrap import wrap
-from PIL import Image, ImageTk
+from PIL import Image
 import pystray
 
 from plyer.utils import platform

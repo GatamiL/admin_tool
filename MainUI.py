@@ -17,7 +17,7 @@ class Gui:
         self.window.iconbitmap('image.ico')
         StatusBar = Label(self.window, relief = RIDGE, text = "Готово. Последнее сканирование: (28.05.2023 20:00:47)")
         StatusBar.pack(side = BOTTOM, expand = YES, fill = X, anchor = SW, pady = (2,0))
-        self.menu = (pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Сканировать', lambda: self.warning_popup("asdasdasd")),pystray.MenuItem('Закрыть', self.quit_window))
+        self.menu = (pystray.MenuItem('Веб интерфейс', self.show_window), pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Сканировать', lambda: self.warning_popup("asdasdasd")),pystray.MenuItem('Закрыть', self.quit_window))
         self.main_menu = Menu()
         self.main_menu.add_cascade(label="Файл",command=lambda: self.warning_popup("asdasdasd"))
         self.main_menu.add_cascade(label="Настройки", command = self.option_window)
@@ -72,7 +72,7 @@ class Gui:
         vsb = ttk.Scrollbar(self.window, orient="vertical", command=self.tree.yview)
         vsb.place(x=1003, y=85, height=623)
         self.tree.configure(yscrollcommand=vsb.set)
-
+        
         self.tree.insert('', 'end', values=("101", "192.168.254.254", "Сервер Программистов", "Оффлайн","Да","Putty"))
         self.tree.insert('', 'end', values=("101", "192.168.254.254", "Сервер Программистов", "Оффлайн","Да","Putty"))
         self.tree.insert('', 'end', values=("102", "192.168.254.254", "Сервер Программистов", "Оффлайн","Да","Putty"))

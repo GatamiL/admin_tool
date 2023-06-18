@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import *
 from PIL import Image
 import pystray
+from database import database
+import webbrowser
 
 from plyer.utils import platform
 from plyer import notification
@@ -17,7 +19,7 @@ class Gui:
         self.window.iconbitmap('image.ico')
         StatusBar = Label(self.window, relief = RIDGE, text = "Готово. Последнее сканирование: (28.05.2023 20:00:47)")
         StatusBar.pack(side = BOTTOM, expand = YES, fill = X, anchor = SW, pady = (2,0))
-        self.menu = (pystray.MenuItem('Веб интерфейс', self.show_window), pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Сканировать', lambda: self.warning_popup("asdasdasd")),pystray.MenuItem('Закрыть', self.quit_window))
+        self.menu = (pystray.MenuItem('Веб интерфейс', Gui.WEB), pystray.MenuItem('Развернуть', self.show_window, default = True), pystray.MenuItem('Сканировать', lambda: self.warning_popup("asdasdasd")),pystray.MenuItem('Закрыть', self.quit_window))
         self.main_menu = Menu()
         self.main_menu.add_cascade(label="Файл",command=lambda: self.warning_popup("asdasdasd"))
         self.main_menu.add_cascade(label="Настройки", command = self.option_window)
@@ -166,6 +168,6 @@ class Gui:
         ),
         timeout = 2
         )
+    def WEB():
+        webbrowser.open('http://localhost:31524', new=2)
 
-if __name__ in '__main__':
-    Gui()

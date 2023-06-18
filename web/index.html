@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/68a091bb02.js" crossorigin="anonymous"></script>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+	<script src="https://unpkg.com/konva@9/konva.min.js"></script>
+
+	<title>RTScan</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active"><a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa fa-plus" aria-hidden="true"></i> Add device</a></li>
+			<li class="nav-item"><a class="nav-link"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a></li>
+			<li class="nav-item"><a class="nav-link"><i class="fa fa-cog" aria-hidden="true"></i> Option</a></li>
+		</ul>
+	</div>
+	<font class="nav-link text-muted align-end">last update: 19:49:05 15.06.2023</font>
+</nav>
+
+<div class="container-fluid">
+	<div class="row" style="height:calc(100vh - 60px);">
+		<div class="col" style="width:100%;height:calc(100vh - 65px);background-color:#eee; border: 1px solid #ccc;overflow: hidden;">
+
+<!--  http://fabricjs.com/  -->
+    <div id="map"></div>
+<script>
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+var stage = new Konva.Stage({
+	container: 'map',
+	width: width,
+	height: height,
+	draggable: true,
+});
+
+var layer = new Konva.Layer();
+stage.add(layer);
+
+function Server(type,posx,posy,name){
+	type = 'server_' + type + '.png';
+	var textNode = new Konva.Text({
+			text: name,
+			x: posx,
+			y: posy,
+			fontSize: 20,
+			width: 200,
+	});
+	
+	Konva.Image.fromURL(type, (imageNode) => {
+		layer.add(imageNode);
+		imageNode.setAttrs({
+			width: 50,
+			height: 50,
+			x: posx+30,
+			y: posy-60,
+		})
+	});
+	layer.batchDraw();
+	layer.add(textNode);
+}
+
+function Router(type,posx,posy,name){
+	type = 'router_' + type + '.png';
+	var textNode = new Konva.Text({
+			text: name,
+			x: posx,
+			y: posy,
+			fontSize: 20,
+			width: 200,
+	});
+	
+	Konva.Image.fromURL(type, (imageNode) => {
+		layer.add(imageNode);
+		imageNode.setAttrs({
+			width: 50,
+			height: 50,
+			x: posx+30,
+			y: posy-60,
+		})
+	});
+	layer.batchDraw();
+	layer.add(textNode);
+}
+</script>
+<script>
+	Server('on',300,300,'Сервер Энергосбыт');
+	Server('off',150,150,'Сервер CCC');
+	Router('on',400,400,'Сервер CCC')
+	Router('off',500,500,'Сервер Энергосбыт')
+	
+</script>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title" id="offcanvasScrollingLabel">Devices:</h5>
+		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body">
+		<ul class="list-group">
+			<li class="list-group-item"><img width="10%" class="img-fluid" src='router.svg'> Router</li>
+			<li class="list-group-item"><img width="10%" class="img-fluid" src='computer.svg'> Computer</li>
+			<li class="list-group-item">Morbi leo risus</li>
+			<li class="list-group-item">Porta ac consectetur ac</li>
+			<li class="list-group-item">Vestibulum at eros</li>
+		</ul>
+	</div>
+</div>
+
+</body>
+</html>

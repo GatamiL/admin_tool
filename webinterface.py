@@ -1,5 +1,6 @@
-from http.server import BaseHTTPRequestHandler
+from http.server import *
 from urllib import parse
+
 
 
 class GetHandler(BaseHTTPRequestHandler):
@@ -35,3 +36,7 @@ class GetHandler(BaseHTTPRequestHandler):
                          'text/plain; charset=utf-8')
         self.end_headers()
         self.wfile.write(message.encode('utf-8'))
+    def run():
+        server = HTTPServer(('localhost', 31524), GetHandler)
+        print('Starting server, use <Ctrl-C> to stop')
+        server.serve_forever()
